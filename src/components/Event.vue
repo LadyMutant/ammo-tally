@@ -1,33 +1,45 @@
 <template>
     <div class="container">
-        <h1>Create Event</h1>
         <div class="row">
             <div class="col-md-3"></div>
-            <div class="col-md-6">
-                Needs to have a date, Primary RSO, Secondary RSO, the 5 types of popular ammo that will be used (to populate the table)
+            <div class="col-md-6" v-if="this.submitted == false">
+            <h1>Create Event</h1>
+                <input type="text" placeholder="Event Name" v-model="event.eventName"/>
+                <br>
+                <input type="text" placeholder="Primary RSO" v-model="event.primaryRso"/>
+                <input type="text" placeholder="Secondary RSO" v-model="event.secondaryRso"/>
                 <br/>
-                <input type="text" placeholder="Event Name" v-model="EventName"/>
-                <input type="text" placeholder="Primary RSO" v-model="primaryRso"/>
-                <input type="text" placeholder="Secondary RSO" v-model="secondaryRso"/>
-                <br/>
                 <br>
-                <input type="text" placeholder="Ammo 1"/>
+                <input type="text" placeholder="Ammo 1" v-model="event.ammo1"/>
                 <br>
-                <input type="text" placeholder="Ammo 2"/>
+                <input type="text" placeholder="Ammo 2" v-model="event.ammo2"/>
                 <br>
-                <input type="text" placeholder="Ammo 3"/>
+                <input type="text" placeholder="Ammo 3" v-model="event.ammo3"/>
                 <br>
-                <input type="text" placeholder="Ammo 4"/>
+                <input type="text" placeholder="Ammo 4" v-model="event.ammo4"/>
                 <br>
-                <input type="text" placeholder="Ammo 5"/>
+                <input type="text" placeholder="Ammo 5" v-model="event.ammo5"/>
                 <br>
                 <br>
             <button class='ui basic button icon' v-on:click="sendForm()">
                 Create Event
             </button>
             </div>
-
+            <div class="col-md-12" v-else>
+                <h1>{{ event.eventName }}</h1>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h3>Primary RSO: </h3><p>{{ event.primaryRso }}</p>
+                    </div>
+                    <div class="col-md-2 offset-md-8">
+                        <h4>Secondary RSO: </h4><p>{{ event.secondaryRso }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+    
+
     </div>
 </template>
 
@@ -36,43 +48,13 @@ export default {
     name: 'create-event',
     data() {
         return {
-            EventName: '',
-            primaryRso: '',
-            secondaryRso: '',
-            ammo1: '',
-            ammo2: '',
-            ammo3: '',
-            ammo4: '',
-            ammo5: '',
-            guests: [],
+            event: this.$store.state,
+            submitted: false
         }
     },
     methods: {
-        log(message) {
-            console.log(message);
-        },
-
         sendForm() {
-            if (this.EventName.length > 0 ) {
-                console.log(guests);
-                /*const name = this.name;
-                const waiver = false;
-                const rental = false;
-                const rentalUsed = false;
-                const target = 0; */
-                const event = {
-                    EventName: this.EventName,
-                    primaryRso: this.primaryRso,
-                    secondaryRso: this.secondaryRso,
-                    ammo1: this.ammo1,
-                    ammo2: this.ammo2,
-                    ammo3: this.ammo3,
-                    ammo4: this.ammo4,
-                    ammo5: this.ammo5,
-                    guests: this.guests
-                }
-                this.$emit('create-event', event);
-            }
+            this.submitted = true
         }
     }
 }

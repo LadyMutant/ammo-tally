@@ -6,20 +6,20 @@
                 <th>Customer Name</th>
                 <th>Firearm Rental?</th>
                 <th>Targets</th>
-                <th>9mm ammo bag</th>
-                <th>.223 ammo bag</th>
-                <th>Grind Hard Ammo</th>
-                <th>Frontier 50rd</th>
-                <th>Frontier 20rd</th>
+                <th>{{ event.ammo1 }}</th>
+                <th>{{ event.ammo2 }}</th>
+                <th>{{ event.ammo3 }}</th>
+                <th>{{ event.ammo4 }}</th>
+                <th>{{ event.ammo5 }}</th>
                 <th>Checked Out</th>
             </tr>
             </thead>
             <tr>
-                <td colspan="9" v-show="guests.length === 0">
+                <td colspan="9" v-show="this.guests.length === 0">
                     NONE ADDED YET
                 </td>
             </tr>
-            <tr v-for="guest in guests" v-show="guest.waiver">
+            <tr v-for="guest in this.guests" v-show="guest.waiver">
                 <td><b>{{ guest.name }}</b>
                     <br/>
                     <i>Waiver completed</i>
@@ -88,20 +88,20 @@
 <script>
 export default {
   name: 'ammo-tally',
-  props: ['guests'],
   data () {
     return {
-      msg: 'Welcome to OnPoint'
+        event: this.$store.state,
+        guests: this.$store.state.guests
     }
   },
   methods: {
       increment(guest, property) {
-          guest[property]++;
+          const payload = { guest: guest, property: property }
+          this.$store.commit('increment', payload)
       },
       decrement(guest, property) {
-        if (guest[property] > 0) {
-            guest[property]--;
-        }
+        const payload = { guest: guest, property: property }
+        this.$store.commit('decrement', payload)
       }
   }
 }

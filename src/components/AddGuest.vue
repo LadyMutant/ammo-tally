@@ -4,7 +4,7 @@
         <div class="col-md-2 checked-in-guests">
             Number of Checked In Guests:
             <br>
-            <h2><b>{{ guests.length }}</b></h2>
+            <h2><b>{{ this.guests.length }}</b></h2>
         </div>
         <div class="col-md-6" style="text-align: center">
             <!--<input type="text" class="form-control" v-model="name" ref="name" />
@@ -21,7 +21,7 @@
                     aria-label="Recipient's Name" 
                     v-model="name">
                 <div class="input-group-append">
-                    <span class="input-group-text" id="basic-addon2" v-on:click="sendForm()">Check In</span>
+                    <span class="input-group-text" id="basic-addon2" v-on:click="sendForm()" style="cursor:pointer;">Check In</span>
                 </div>
             </div>
         </div>
@@ -40,49 +40,17 @@
 <script>
 export default {
     name: 'add-guest',
-    props: ['guests'],
     data() {
         return {
-            id:'',
-            name: '',
-            waiver: false,
-            rental: false,
-            rentalUsed: false,
-            target: 0,
-            ammo1: 0,
-            ammo2: 0,
-            ammo3: 0,
-            ammo4: 0,
-            ammo5: 0,
-            checkedOut: false
+            guests: this.$store.state.guests,
+            name: ''
         }
     },
     methods: {
-        log(message) {
-            console.log(message);
-        },
         sendForm() {
             if (this.name.length > 0 ) {
-                /*const name = this.name;
-                const waiver = false;
-                const rental = false;
-                const rentalUsed = false;
-                const target = 0; */
-                const guest = {
-                    id: 99,
-                    name: this.name,
-                    waiver: false,
-                    rental: false,
-                    rentalUsed: false,
-                    target: 0,
-                    ammo1: 0,
-                    ammo2: 0,
-                    ammo3: 0,
-                    ammo4: 0,
-                    ammo5: 0,
-                    checkedOut: false
-                }
-                this.$emit('add-guest', guest);
+                this.$store.commit('addGuest', this.name)
+                this.name = "";
             }
         }
     }
