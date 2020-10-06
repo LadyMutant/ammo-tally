@@ -28,10 +28,10 @@
                 </td>
                 <td>
                     <div class="checkbox">
-                        <input type="checkbox" v-model="guest.rentalUsed">
+                        <input type="checkbox" v-if="guest.rental === true" v-model="guest.rentalUsed">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" ref="rental-gun" defaultValue="" placeholder="Rental Gun" v-show="guest.rentalUsed"/>
+                        <input type="text" class="form-control" ref="rental-gun" defaultValue="" placeholder="Rental Gun" v-show="guest.rentalUsed"/>
                     </div>
                 </td>
                 <td>
@@ -77,7 +77,7 @@
                     </div>
                 </td>
                 <td>
-                    <input type="checkbox" />
+                    <input type="checkbox" v-model="guest.checkedOut" />
                 </td>
             </tr>
         
@@ -92,6 +92,7 @@ export default {
     return {
         event: this.$store.state,
         guests: this.$store.state.guests
+        
     }
   },
   methods: {
@@ -107,3 +108,9 @@ export default {
 }
 
 </script>
+
+<style>
+    .checked-out {
+        background-color: blue;
+    }
+</style>

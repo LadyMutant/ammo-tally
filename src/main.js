@@ -21,6 +21,13 @@ const store = new Vuex.Store({
     guests: []
   },
   mutations: {
+    initializeStore(state) {
+      if(localStorage.getItem('store')) {
+        this.replaceState(
+          Object.assign(state, JSON.parse(localStorage.getItem('store')))
+        )
+      }
+    },
     increment (state, payload) {
       const idx = state.guests.indexOf(payload.guest)
       state.guests[idx][payload.property]++
@@ -43,17 +50,24 @@ const store = new Vuex.Store({
         ammo3: 0,
         ammo4: 0,
         ammo5: 0,
-        active: true
+        checkedOut: false
       }
       state.guests.push(guest);
     }
   }
 })
 
+store.subscribe((mutation, state) => {
+  localStorage.setItem('store', JSON.stringify(state));
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+  },
   components: { App },
   template: '<App/>'
 })
