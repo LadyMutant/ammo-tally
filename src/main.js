@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
+//import Router from './router'
+
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
@@ -38,6 +40,11 @@ const store = new Vuex.Store({
         state.guests[idx][payload.property]-- 
       }
     },
+    removeGuest (state, payload) {
+      state.guests.splice(this.state.guests.indexOf(payload.guest), 1);
+
+      log(guests);
+    },
     addGuest (state, name) {
       const guest = {
         name: name,
@@ -64,6 +71,7 @@ store.subscribe((mutation, state) => {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  //router,
   store,
   beforeCreate() {
     this.$store.commit('initializeStore')
@@ -71,5 +79,3 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-
-

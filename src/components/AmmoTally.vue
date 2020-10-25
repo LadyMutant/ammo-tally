@@ -3,6 +3,7 @@
         <table class="table">
             <thead class="thead-light">
             <tr class="thead-light">
+                <th>Edit/Delete</th>
                 <th>Customer Name</th>
                 <th>Firearm Rental?</th>
                 <th>Targets</th>
@@ -19,7 +20,14 @@
                     NONE ADDED YET
                 </td>
             </tr>
-            <tr v-for="guest in this.guests" v-show="guest.waiver">
+            <tr v-for="(guest, index) in this.guests" v-show="guest.waiver">
+                <td>
+                    <span class="fas fa-edit fa-2x pull-left"></span>
+                    <span
+                        class="fas fa-trash fa-2x pull-right"
+                        v-on:click="removeGuest(guest, index)">
+                    </span>
+                </td>
                 <td><b>{{ guest.name }}</b>
                     <br/>
                     <i>Waiver completed</i>

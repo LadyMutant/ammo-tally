@@ -45,7 +45,7 @@
 
 <script>
 export default {
-    name: 'event',
+    name: 'CreateEvent',
     data() {
         return {
             event: this.$store.state,
