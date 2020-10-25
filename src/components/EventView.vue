@@ -1,5 +1,10 @@
 <template>
 <div>
+    {{ event.eventName }}
+    <br>
+    {{ event.primaryRso }}
+    <br>
+    {{ event.secondaryRso }}
     <add-guest></add-guest>
     <ammo-tally></ammo-tally>
 </div>
