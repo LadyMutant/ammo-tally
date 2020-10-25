@@ -8,11 +8,7 @@ const store = new Vuex.Store({
       eventName: '',
       primaryRso: '',
       secondaryRso: '',
-      ammo1: '',
-      ammo2: '',
-      ammo3: '',
-      ammo4: '',
-      ammo5: '',
+      ammo: [],
       date: '',
       guests: []
     },
@@ -35,9 +31,13 @@ const store = new Vuex.Store({
         }
       },
       removeGuest (state, payload) {
-        state.guests.splice(this.state.guests.indexOf(payload.guest), 1);
-  
-        log(guests);
+        state.guests.splice(this.state.guests.indexOf(payload), 1);
+      },
+      addAmmo(state, ammo) {
+        state.ammo.push(ammo);
+      },
+      removeAmmo(state, ammo) {
+        state.ammo.splice(this.state.ammo.indexOf(ammo), 1);
       },
       addGuest (state, name) {
         const guest = {

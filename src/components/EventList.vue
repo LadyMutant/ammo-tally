@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/event-create">Create Event</router-link>
+        <router-link to="/create-event">Create Event</router-link>
         <router-link to="/event-view">View Event</router-link>
     </div>
 </template>
