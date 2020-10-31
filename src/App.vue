@@ -1,10 +1,12 @@
  <template>
   <div id="app">
-   <img
-    width="300"
-    alt="OnPoint Logo"
-    src="https://secure.meetupstatic.com/photos/event/c/e/d/9/600_491992953.jpeg"
-  />   
+   <router-link to="/">
+            <img
+                width="300"
+                alt="OnPoint Logo"
+                src="https://secure.meetupstatic.com/photos/event/c/e/d/9/600_491992953.jpeg"
+            />
+        </router-link>
     <router-view></router-view>
   </div>
 </template> 

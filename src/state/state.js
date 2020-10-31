@@ -21,13 +21,15 @@ const store = new Vuex.Store({
         }
       },
       increment (state, payload) {
-        const idx = state.guests.indexOf(payload.guest)
-        state.guests[idx][payload.property]++
+        const index = payload.index
+        const guestIndex = state.guests.indexOf(payload.guest)
+        state.guests[guestIndex].ammo[index].quantity++
       },
       decrement (state, payload) {
-        const idx = state.guests.indexOf(payload.guest)
-        if (state.guests[idx][payload.property] > 0) {
-          state.guests[idx][payload.property]-- 
+        const index = payload.index
+        const guestIndex = state.guests.indexOf(payload.guest)
+        if (state.guests[guestIndex].ammo[index].quantity > 0) {
+          state.guests[guestIndex].ammo[index].quantity-- 
         }
       },
       removeGuest (state, payload) {
@@ -40,18 +42,19 @@ const store = new Vuex.Store({
         state.ammo.splice(this.state.ammo.indexOf(ammo), 1);
       },
       addGuest (state, name) {
+        const ammo = this.state.ammo;
+        ammo.forEach((item, index) => {
+          item.quantity = 0;
+        })
+
         const guest = {
           name: name,
           waiver: false,
           rental: false,
           rentalUsed: false,
-          target: 0,
-          ammo1: 0,
-          ammo2: 0,
-          ammo3: 0,
-          ammo4: 0,
-          ammo5: 0,
-          checkedOut: false
+          ammo: ammo,
+          checkedOut: false,
+          target: 0
         }
         state.guests.push(guest);
       }

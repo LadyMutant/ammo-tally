@@ -67,7 +67,8 @@ export default {
             ammo: this.$store.state.ammo,
             currentAmmo: {
                 name: '',
-                price: ''
+                price: '',
+                quanitity: 0,
             }
         }
     },
@@ -76,6 +77,7 @@ export default {
             const ammo = { name: this.currentAmmo.name, price: this.currentAmmo.price }
             this.currentAmmo.name = '';
             this.currentAmmo.price = '';
+            this.currentAmmo.quantity = 0;
             this.$store.commit('addAmmo', ammo)
         },
         removeAmmo(ammo) {

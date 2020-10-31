@@ -6,6 +6,7 @@
     <br>
     {{ event.secondaryRso }}
     <add-guest></add-guest>
+    <guest-list></guest-list>
     <ammo-tally></ammo-tally>
 </div>
 </template>

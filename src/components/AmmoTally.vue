@@ -3,16 +3,12 @@
         <table class="table">
             <thead class="thead-light">
             <tr class="thead-light">
+                <th>Check Out</th>
                 <th>Edit/Delete</th>
                 <th>Customer Name</th>
                 <th>Firearm Rental?</th>
                 <th>Targets</th>
-                <th>{{ event.ammo1 }}</th>
-                <th>{{ event.ammo2 }}</th>
-                <th>{{ event.ammo3 }}</th>
-                <th>{{ event.ammo4 }}</th>
-                <th>{{ event.ammo5 }}</th>
-                <th>Checked Out</th>
+                <th v-for="(ammo, index) in event.ammo">{{ ammo.name }}</th>
             </tr>
             </thead>
             <tr>
@@ -21,6 +17,9 @@
                 </td>
             </tr>
             <tr v-for="(guest, index) in this.guests" v-show="guest.waiver">
+                <td>
+                    <input type="checkbox"/>
+                </td>
                 <td>
                     <span class="fas fa-edit fa-2x pull-left"></span>
                     <span
@@ -49,14 +48,14 @@
                         <button type="button" class="btn btn-primary"  v-on:click="increment(guest, 'target')">+</button>
                     </div> 
                 </td>
-                <td>
+                <td v-for="(ammo, index) in guest.ammo">
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary"  v-on:click="decrement(guest, 'ammo1')">-</button>
-                        <button type="button" class="btn btn-primary">{{ guest.ammo1 }}</button>
-                        <button type="button" class="btn btn-primary"  v-on:click="increment(guest, 'ammo1')">+</button>
+                        <button type="button" class="btn btn-primary"  v-on:click="decrement(guest, index)">-</button>
+                        <button type="button" class="btn btn-primary">{{ ammo.quantity }}</button>
+                        <button type="button" class="btn btn-primary"  v-on:click="increment(guest, index)">+</button>
                     </div> 
                 </td>
-                <td>
+                <!-- <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary" v-on:click="decrement(guest, 'ammo2')">-</button>
                         <button type="button" class="btn btn-primary">{{ guest.ammo2 }}</button>
@@ -83,10 +82,10 @@
                         <button type="button" class="btn btn-primary">{{ guest.ammo5 }}</button>
                         <button type="button" class="btn btn-primary" v-on:click="increment(guest, 'ammo5')">+</button>
                     </div>
-                </td>
+                </td> 
                 <td>
                     <input type="checkbox" v-model="guest.checkedOut" />
-                </td>
+                </td> -->
             </tr>
         
         </table>
@@ -104,12 +103,12 @@ export default {
     }
   },
   methods: {
-      increment(guest, property) {
-          const payload = { guest: guest, property: property }
+      increment(guest, index) {
+          const payload = { guest: guest, index: index }
           this.$store.commit('increment', payload)
       },
-      decrement(guest, property) {
-        const payload = { guest: guest, property: property }
+      decrement(guest, index) {
+        const payload = { guest: guest, index: index }
         this.$store.commit('decrement', payload)
       }
   }
