@@ -20,6 +20,18 @@ const store = new Vuex.Store({
           )
         }
       },
+      incrementTarget (state, payload) {
+        const index = payload.index
+        const guestIndex = state.guests.indexOf(payload.guest)
+        state.guests[guestIndex].target++
+      },
+      decrementTarget (state, payload) {
+        const index = payload.index
+        const guestIndex = state.guests.indexOf(payload.guest)
+        if (state.guests[guestIndex].target > 0) {
+          state.guests[guestIndex].target-- 
+        }
+      },
       increment (state, payload) {
         const index = payload.index
         const guestIndex = state.guests.indexOf(payload.guest)
@@ -31,6 +43,14 @@ const store = new Vuex.Store({
         if (state.guests[guestIndex].ammo[index].quantity > 0) {
           state.guests[guestIndex].ammo[index].quantity-- 
         }
+      },
+      completeWaiver(state, guest) {
+        const guestIndex = state.guests.indexOf(guest)
+        state.guests[guestIndex].waiver = true
+      },
+      completeRental(state, guest) {
+        const guestIndex = state.guests.indexOf(guest)
+        state.guests[guestIndex].rental = true
       },
       removeGuest (state, payload) {
         state.guests.splice(this.state.guests.indexOf(payload), 1);

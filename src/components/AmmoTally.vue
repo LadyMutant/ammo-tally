@@ -4,7 +4,7 @@
             <thead class="thead-light">
             <tr class="thead-light">
                 <th>Check Out</th>
-                <th>Edit/Delete</th>
+                <th>Delete</th>
                 <th>Customer Name</th>
                 <th>Firearm Rental?</th>
                 <th>Targets</th>
@@ -21,13 +21,33 @@
                     <input type="checkbox"/>
                 </td>
                 <td>
-                    <span class="fas fa-edit fa-2x pull-left"></span>
+                    <!--<span 
+                        class="fas fa-edit fa-2x pull-left"
+                        v-on:click="editName(guest)">
+                    </span>-->
                     <span
                         class="fas fa-trash fa-2x pull-right"
-                        v-on:click="removeGuest(guest, index)">
+                        v-on:click="removeGuest(guest)">
                     </span>
                 </td>
-                <td><b>{{ guest.name }}</b>
+                <td>
+
+                    <div class="input-group mb-3" v-show="newName">
+                        <input 
+                        type="text" 
+                        class="form-control"
+                        ref="edit-name" 
+                        defaultValue="" 
+                        placeholder="Edit Name"
+                        v-model="newName"
+                        maxlength="20"/>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </div>
+                        </div>
+                    <b>{{ guest.name }}</b>
                     <br/>
                     <i>Waiver completed</i>
                     <br>
@@ -38,14 +58,19 @@
                         <input type="checkbox" v-if="guest.rental === true" v-model="guest.rentalUsed">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" ref="rental-gun" defaultValue="" placeholder="Rental Gun" v-show="guest.rentalUsed"/>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            ref="rental-gun" 
+                            placeholder="Rental Gun" 
+                            v-show="guest.rentalUsed"/>
                     </div>
                 </td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" v-on:click="decrement(guest, 'target')">-</button>
+                        <button type="button" class="btn btn-primary" v-on:click="decrementTarget(guest, 'target')">-</button>
                         <button type="button" class="btn btn-primary" >{{ guest.target }}</button>
-                        <button type="button" class="btn btn-primary"  v-on:click="increment(guest, 'target')">+</button>
+                        <button type="button" class="btn btn-primary"  v-on:click="incrementTarget(guest, 'target')">+</button>
                     </div> 
                 </td>
                 <td v-for="(ammo, index) in guest.ammo">
@@ -55,37 +80,6 @@
                         <button type="button" class="btn btn-primary"  v-on:click="increment(guest, index)">+</button>
                     </div> 
                 </td>
-                <!-- <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" v-on:click="decrement(guest, 'ammo2')">-</button>
-                        <button type="button" class="btn btn-primary">{{ guest.ammo2 }}</button>
-                        <button type="button" class="btn btn-primary"  v-on:click="increment(guest, 'ammo2')">+</button>
-                    </div> 
-                </td>
-                <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" v-on:click="decrement(guest, 'ammo3')">-</button>
-                        <button type="button" class="btn btn-primary">{{ guest.ammo3 }}</button>
-                        <button type="button" class="btn btn-primary" v-on:click="increment(guest, 'ammo3')">+</button>
-                    </div>
-                </td>
-                <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" v-on:click="decrement(guest, 'ammo4')">-</button>
-                        <button type="button" class="btn btn-primary">{{ guest.ammo4 }}</button>
-                        <button type="button" class="btn btn-primary" v-on:click="increment(guest, 'ammo4')">+</button>
-                    </div>
-                </td>
-                <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" v-on:click="decrement(guest, 'ammo5')">-</button>
-                        <button type="button" class="btn btn-primary">{{ guest.ammo5 }}</button>
-                        <button type="button" class="btn btn-primary" v-on:click="increment(guest, 'ammo5')">+</button>
-                    </div>
-                </td> 
-                <td>
-                    <input type="checkbox" v-model="guest.checkedOut" />
-                </td> -->
             </tr>
         
         </table>
@@ -98,11 +92,19 @@ export default {
   data () {
     return {
         event: this.$store.state,
-        guests: this.$store.state.guests
-        
+        guests: this.$store.state.guests,
+        newName: false
     }
   },
   methods: {
+      incrementTarget(guest, index) {
+          const payload = { guest: guest, index: index }
+          this.$store.commit('incrementTarget', payload)
+      },
+      decrementTarget(guest, index) {
+        const payload = { guest: guest, index: index }
+        this.$store.commit('decrementTarget', payload)
+      },
       increment(guest, index) {
           const payload = { guest: guest, index: index }
           this.$store.commit('increment', payload)
@@ -110,6 +112,12 @@ export default {
       decrement(guest, index) {
         const payload = { guest: guest, index: index }
         this.$store.commit('decrement', payload)
+      },
+      removeGuest(guest) {
+          const response = window.confirm('Are you sure you want to delete ' + guest.name + '?')
+          if (response === true) {
+            this.$store.commit('removeGuest', guest)
+          }
       }
   }
 }
