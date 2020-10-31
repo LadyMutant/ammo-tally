@@ -17,12 +17,16 @@
                 <td>{{ guest.name }}</td>
                 <td>
                     <div class="checkbox">
-                        <input type="checkbox" v-model="guest.rental">
+                        <input type="checkbox" 
+                        v-model="guest.rental"
+                        v-on:change="completeRental(guest)">
                     </div>
                 </td>
                 <td>
                     <div class="checkbox">
-                        <input type="checkbox" v-model="guest.waiver">
+                        <input type="checkbox" 
+                        v-model="guest.waiver" 
+                        v-on:change="completeWaiver(guest)">
                     </div>
                 </td>
             </tr>
@@ -39,6 +43,14 @@ export default {
     return {
       guests: this.$store.state.guests
     }
+  },
+  methods: {
+      completeRental(guest) {
+          this.$store.commit('completeRental', guest)
+      },
+      completeWaiver(guest) {
+          this.$store.commit('completeWaiver', guest)
+      }
   }
 }
 
