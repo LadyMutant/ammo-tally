@@ -6,7 +6,10 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>{{ event.eventName }}</h2>
-                <h5>{{ event.primaryRso }}</h5>
+                <h5>
+                    <!--{{ this.$store.getters.simpleDate() }}-->
+                    
+                    {{ event.primaryRso }}</h5>
                 <h5>{{ event.secondaryRso }}</h5>
                 <table class="table">
                     <thead class="thead-dark">
@@ -33,12 +36,15 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tfoot>
-                       Total Spent: $ {{ eventTotal() }}
-                    </tfoot>
-                </table>    
+                </table>  
+
             </div>
             
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Total Spent: $ {{ eventTotal() }}</h1>
+            </div>
         </div>
         
     </div>
@@ -54,7 +60,7 @@ export default {
     },
     methods: {
         totalSpent(guest) {
-            var targetPrice = 1.5;
+            var targetPrice = 1.50;
             var targetTotal = targetPrice * guest.target;
             var total = targetTotal;
             guest.ammo.forEach((ammo, index) => {

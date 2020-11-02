@@ -9,8 +9,18 @@ const store = new Vuex.Store({
       primaryRso: '',
       secondaryRso: '',
       ammo: [],
-      date: '',
+      date: null,
       guests: []
+    },
+    getters: {
+      simpleDate(state) {
+        const date = state.date
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        var month = months[date.getMonth()]
+        var day = date.getDay()
+        var year = date.getFullYear()
+        return `${month} ${day}, ${year}`
+      }
     },
     mutations: {
       initializeStore(state) {
@@ -19,6 +29,10 @@ const store = new Vuex.Store({
             Object.assign(state, JSON.parse(localStorage.getItem('store')))
           )
         }
+      },
+      setDate(state) {
+          var todayDate = new Date();
+          state.date = todayDate.toString();
       },
       incrementTarget (state, payload) {
         const index = payload.index

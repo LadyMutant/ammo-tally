@@ -1,12 +1,11 @@
 <template>
     <div style="text-align: center" class="container row">
-        <div class="col-md-4"></div>
-        <div class="col-md-2 checked-in-guests">
-            Number of Checked In Guests:
-            <br>
+        <div class="col-md-1"></div>
+        <div class="col-md-3 checked-in-guests">
+           Checked In Guests:
             <h2><b>{{ this.guests.length }}</b></h2>
         </div>
-        <div class="col-md-6" style="text-align: center">
+        <div class="col-md-7" style="text-align: center">
             <!--<input type="text" class="form-control" v-model="name" ref="name" />
             <button class='ui basic button icon' v-on:click="sendForm()">
                 <i class='plus icon'></i>

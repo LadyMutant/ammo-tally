@@ -36,7 +36,7 @@
                                 {{ product.name }}
                             </td>
                             <td>
-                                {{ product.price }}
+                                $ {{ product.price }}
                             </td>
                             <td>
                                 <button>
@@ -61,6 +61,9 @@
 <script>
 export default {
     name: 'CreateEvent',
+    mounted: function() {
+        this.$store.commit('setDate');
+    },
     data() {
         return {
             event: this.$store.state,

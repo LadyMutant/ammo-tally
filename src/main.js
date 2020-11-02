@@ -4,7 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router/router'
 import store from './state/state'
-
+//import VueFilterDateFormat from 'vue-filter-date-format';
+ 
+//Vue.use(VueFilterDateFormat);
 Vue.config.productionTip = false
 
 new Vue({
