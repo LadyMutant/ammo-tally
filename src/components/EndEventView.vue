@@ -33,6 +33,9 @@
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                       Total Spent: $ {{ eventTotal() }}
+                    </tfoot>
                 </table>    
             </div>
             
@@ -60,6 +63,13 @@ export default {
                 total += amount;
             })
             return total;
+        },
+        eventTotal() {
+            var eTotal= 0;
+            this.event.guests.forEach((guest)=> {
+                eTotal += this.totalSpent(guest);
+            })
+            return eTotal;
         }
     }
 }
