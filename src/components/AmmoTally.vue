@@ -83,6 +83,14 @@
             </tr>
         
         </table>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-light btn-lg">
+                    <router-link to="/end-event">End Event</router-link>
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 

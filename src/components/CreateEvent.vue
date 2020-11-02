@@ -76,7 +76,7 @@ export default {
         addAmmo() {
             const ammo = { name: this.currentAmmo.name, price: this.currentAmmo.price }
             this.currentAmmo.name = '';
-            this.currentAmmo.price = '';
+            this.currentAmmo.price = 0;
             this.currentAmmo.quantity = 0;
             this.$store.commit('addAmmo', ammo)
         },
