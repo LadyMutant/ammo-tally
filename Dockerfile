@@ -1,10 +1,11 @@
 FROM node
+EXPOSE 8080
 
 RUN mkdir /app
-ADD . /app
-
 WORKDIR /app
+COPY package*.json ./
 RUN npm install
 
-EXPOSE 8080
+ADD . /app
+
 CMD npm run dev
